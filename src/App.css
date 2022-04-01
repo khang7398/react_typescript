@@ -1,9 +1,39 @@
-.container {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  max-width: 1000px;
+form {
+  width: 500px;
   margin: 0 auto;
-  min-height: 100vh;
-  margin-top: 5rem;
+}
+
+label,
+input {
+  display: block;
+  width: 100%;
+}
+
+input,
+button {
+  display: block;
+  padding: 0.8rem;
+  outline: none;
+  font-size: inherit;
+  font-family: inherit;
+  margin-top: 1rem;
+  margin-bottom: 1.1rem;
+  border: 1px solid lightgrey;
+}
+
+.error-container {
+  padding: 1rem;
+}
+span {
+  list-style-position: inside;
+  color: rgb(215, 15, 15);
+}
+button {
+  text-transform: uppercase;
+  background-color: darkslateblue;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
 }
