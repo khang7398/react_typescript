@@ -3,18 +3,15 @@ import Form from './component/Form';
 import List from './component/List';
 import './App.css';
 
-export interface IState {
-  people: {
-    name: string;
-    age: number;
-    bio: string;
-  }[];
+export interface IPeople {
+  id: number;
+  name: string;
+  age: number;
+  bio: string;
 }
 
 export default function App() {
-  const [name, setName] = useState('');
-  const [age, setAge] = useState(5);
-  const [people, setPeople] = useState<IState['people']>([]);
+  const [people, setPeople] = useState<IPeople[]>([]);
 
   return (
     <div className="container">

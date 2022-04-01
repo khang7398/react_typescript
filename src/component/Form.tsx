@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import '../css/Form.css';
-import { IState as Props } from '../App';
+import { IPeople } from '../App';
 
 interface IProps {
-  people: Props['people'];
-  setPeople: React.Dispatch<React.SetStateAction<Props['people']>>;
+  people: IPeople[];
+  setPeople: React.Dispatch<React.SetStateAction<IPeople[]>>;
 }
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function ({ people, setPeople }: IProps) {
-  const [inputData, setInputData] = useState({ name: '', age: '', bio: '' });
+  const [inputData, setInputData] = useState({ id: '', name: '', age: '', bio: '' });
 
-  const handleOnChange = (
-    e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -20,12 +18,13 @@ export default function ({ people, setPeople }: IProps) {
     setPeople([
       ...people,
       {
+        id: Number(inputData.id),
         name: inputData.name,
         age: Number(inputData.age),
         bio: inputData.bio,
       },
     ]);
-    setInputData({ name: '', age: '', bio: '' });
+    setInputData({ id: '', name: '', age: '', bio: '' });
   };
   return (
     <div>
