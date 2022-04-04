@@ -1,60 +1,59 @@
 import React, { useState } from 'react';
+import { IUser } from '../App';
 import '../css/Form.css';
-import { IState as Props } from '../App';
-
 interface IProps {
-  people: Props['people'];
-  setPeople: React.Dispatch<React.SetStateAction<Props['people']>>;
+  dataUser: IUser[];
+  setDataUser: React.Dispatch<React.SetStateAction<IUser[]>>;
 }
-// eslint-disable-next-line import/no-anonymous-default-export
-export default function ({ people, setPeople }: IProps) {
-  const [inputData, setInputData] = useState({ name: '', age: '', bio: '' });
+export default function Form({ dataUser, setDataUser }: IProps) {
+  const [inputData, setInputData] = useState({ id: '', first_name: '', last_name: '', email: '' });
 
-  const handleOnChange = (
-    e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handlOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
-  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+
+  const handlOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setPeople([
-      ...people,
+    setDataUser([
+      ...dataUser,
       {
-        name: inputData.name,
-        age: Number(inputData.age),
-        bio: inputData.bio,
+        id: Number(inputData.id),
+        first_name: inputData.first_name,
+        last_name: inputData.last_name,
+        email: inputData.email,
       },
     ]);
-    setInputData({ name: '', age: '', bio: '' });
+    setInputData({ id: '', first_name: '', last_name: '', email: '' });
   };
+
   return (
-    <div>
+    <div className="form-container">
       <h1>Form</h1>
-      <form onSubmit={handleOnSubmit}>
+      <form onSubmit={handlOnSubmit}>
         <input
           type="text"
-          name="name"
-          id="name"
-          placeholder="name"
-          onChange={handleOnChange}
-          value={inputData.name}
+          name="first_name"
+          id="first_name"
+          placeholder="First Name"
+          onChange={handlOnChange}
+          value={inputData.first_name}
         />
         <input
-          type="number"
-          name="age"
-          id="age"
-          placeholder="age"
-          onChange={handleOnChange}
-          value={inputData.age}
+          type="text"
+          name="last_name"
+          id="last_name"
+          placeholder="Last Name"
+          onChange={handlOnChange}
+          value={inputData.last_name}
         />
         <input
-          name="bio"
-          id="bio"
-          placeholder="Bio Description"
-          onChange={handleOnChange}
-          value={inputData.bio}
-        ></input>
-        <button type="submit">Submit</button>
+          name="email"
+          id="email"
+          placeholder="Email"
+          onChange={handlOnChange}
+          value={inputData.email}
+        />
+        <button type="submit">Add</button>
       </form>
     </div>
   );

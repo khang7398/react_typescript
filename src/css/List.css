@@ -1,10 +1,18 @@
 .list-container {
-    flex: 0 0 50%;
-  }
-  
-  .list-item-container {
-    border: 1px solid lightgray;
-    padding: 1rem;
-    border-radius: 3px;
-  }
-  
+  flex: 0 0 50%;
+}
+
+.list-item-container {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  border: 1px solid lightgray;
+  padding: 1rem;
+  border-radius: 3px;
+  background-color: rgb(244, 230, 213);
+}
+.user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
