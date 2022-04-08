@@ -1,38 +1,36 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useStore } from './Zustand/Store';
 import './App.css';
+import Form from './component/Form';
+import List from './component/List';
+
+export interface IUser {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+}
 
 export default function App() {
-  const countStore = useStore((state) => state.count);
-  const increment = useStore((state) => state.increment);
-  const decrement = useStore((state) => state.decrement);
-  const [inputCount, setInputCount] = useState(0);
-  const fetch = useStore((state) => state.fetch);
-  const data = useStore((state) => state.data);
+  const [dataUser, setDataUser] = useState<IUser[]>([]);
 
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/users/1');
+    async function fetchData() {
+      let res = await axios.get('https://reqres.in/api/users?page=1');
+      let data = res && res.data.data ? res.data.data : [];
+
+      // console.log(data);
+
+      setDataUser(data);
+      // console.log('check data user', dataUser);
+    }
+    fetchData();
   }, []);
 
-  console.log('data', data);
-
-  const handlOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputCount(() => parseInt(e.target.value));
-  };
-
-  const handlOnClickIncrement = () => {
-    increment(inputCount);
-  };
-  const handlOnClickDecrement = () => {
-    decrement(inputCount);
-  };
   return (
-    <div className="App">
-      <h1>Count</h1>
-      <p>{`count: = ${countStore}`}</p>
-      <input type="number" value={inputCount} onChange={handlOnChange} />
-      <button onClick={handlOnClickIncrement}>incre</button>
-      <button onClick={handlOnClickDecrement}>decre</button>
+    <div className="container">
+      <Form dataUser={dataUser} setDataUser={setDataUser} />
+      <List dataUser={dataUser} setDataUser={setDataUser} />
     </div>
   );
 }
