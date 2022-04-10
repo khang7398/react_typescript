@@ -1,20 +1,47 @@
+import axios from 'axios';
 import create from 'zustand';
 
 type State = {
-  count: number;
-  increment: (value: number) => void;
-  decrement: (value: number) => void;
   fetch: (url: any) => void;
-  data: {};
+  finish: {
+    name: '';
+    main: {
+      temp: '';
+      feels_like: '';
+      humidity: '';
+    };
+    weather: [
+      {
+        id: '';
+        description: '';
+      }
+    ];
+    wind: {
+      speed: '';
+    };
+  };
 };
 
 export const useStore = create<State>((set) => ({
-  count: 0,
-  data: {},
-  increment: (value) => set((state) => ({ count: state.count + value })),
-  decrement: (value) => set((state) => ({ count: state.count - value })),
+  finish: {
+    name: '',
+    main: {
+      temp: '',
+      feels_like: '',
+      humidity: '',
+    },
+    weather: [
+      {
+        id: '',
+        description: '',
+      },
+    ],
+    wind: {
+      speed: '',
+    },
+  },
   fetch: async (url) => {
-    const res = await fetch(url);
-    set({ data: await res.json() });
+    const res = await axios.get(url);
+    set({ finish: await res.data });
   },
 }));
